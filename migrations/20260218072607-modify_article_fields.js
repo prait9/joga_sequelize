@@ -2,12 +2,6 @@
 module.exports = {
   up (queryInterface, Sequelize) {
     return Promise.all([
-      queryInterface.changeColumn('Articles', 'id', {
-        type: Sequelize.INTEGER,
-        autoIncrement: true,
-        primaryKey: true,
-        allowNull: false
-      }),
       queryInterface.changeColumn('Articles', 'name', {
         type: Sequelize.STRING,
         allowNull: false
@@ -28,18 +22,12 @@ module.exports = {
       queryInterface.changeColumn('Articles', 'published', {
         type: Sequelize.DATE,
         allowNull: false
-      }),
-      queryInterface.changeColumn('Articles', 'author_id', {
-        type: Sequelize.INTEGER
       })
     ])
   },
 
   down (queryInterface, Sequelize) {
     return Promise.all([
-      queryInterface.changeColumn('Articles', 'id', {
-        type: Sequelize.INTEGER
-      }),
       queryInterface.changeColumn('Articles', 'name', {
         type: Sequelize.STRING
       }),
@@ -54,9 +42,6 @@ module.exports = {
       }),
       queryInterface.changeColumn('Articles', 'published', {
         type: Sequelize.DATE
-      }),
-      queryInterface.changeColumn('Articles', 'author_id', {
-        type: Sequelize.INTEGER
       })
     ])
   }
