@@ -1,19 +1,20 @@
-const Sequelize = require('sequelize')
-const sequelize = new Sequelize('mysql://root:qwerty@localhost:3306/joga_sequelize')
-
 const models = require('../models')
 
 const getArticleByAuthorId = (req, res) => {
-  models.Article.findAll({
-    where: { author_id: req.params.id },
-    include: [{model: models.Author}],
-})
-    .then((articles) => {
-      console.log(articles);
-      res.status(200).json({ articles });
+  models.Author.findByPk(req.params.id, {
+    include: [{ model: models.Article }]
+  })
+    .then((author) => {
+      console.log(author);
+
+      if (!author) {
+        return res.status(404).json({ message: 'Author not found' });
+      }
+
+      return res.status(200).json({ author });
     })
     .catch((error) => {
-      res.status(500).send(error.message);
+      return res.status(500).send(error.message);
     });
 };
 
